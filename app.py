@@ -247,25 +247,27 @@ if page == "Trainer":
         if isinstance(current_item, str) and (current_item.endswith("♥") or current_item.endswith("♦")):
             color = "#ff4b4b"
 
-        # Unique class + keyframe
+        # Unique class + keyframe name per index → forces fresh animation each time
+        anim_name = f"fadeOut_{idx}"
+        class_name = f"fading-item-{idx}"
 
-        # CSS keyframe: visible for first 70% of the duration, then fade out
         fade_html = f"""
         <style>
-        @keyframes fadeOut {{
+        @keyframes {anim_name} {{
             0%   {{ opacity: 1; }}
             70%  {{ opacity: 1; }}
             100% {{ opacity: 0; }}
         }}
-        .fading-item {{
+        .{class_name} {{
             text-align: center;
             font-size: 150px;
             margin-top: 50px;
             color: {color};
-            animation: fadeOut {seconds}s ease-in forwards;
+            opacity: 1;
+            animation: {anim_name} {seconds}s ease-in forwards;
         }}
         </style>
-        <div class="fading-item">{current_item}</div>
+        <div class="{class_name}">{current_item}</div>
         """
         st.markdown(fade_html, unsafe_allow_html=True)
 
@@ -274,7 +276,7 @@ if page == "Trainer":
         if st.session_state.current_index >= total:
             go_to_recall()
         st.rerun()
-
+        
     # ---------- PHASE 3: RECALL ----------
     elif st.session_state.phase == "recall":
         st.title("✍️ Recall phase")
