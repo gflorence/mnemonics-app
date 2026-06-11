@@ -247,6 +247,8 @@ if page == "Trainer":
         if isinstance(current_item, str) and (current_item.endswith("♥") or current_item.endswith("♦")):
             color = "#ff4b4b"
 
+        # Unique class + keyframe
+
         # CSS keyframe: visible for first 70% of the duration, then fade out
         fade_html = f"""
         <style>
